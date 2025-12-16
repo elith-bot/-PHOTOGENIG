@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work - PHOTOGENIG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}" class="logo">
+                <div class="logo-icon"></div>
+                <span>PHOTOGENIG</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}#portfolio">Work</a></li>
+                <li><a href="{{ url_for('index') }}#about">About</a></li>
+                <li><a href="{{ url_for('index') }}#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="full-portfolio" data-aos="fade-up">
+            <div class="section-content">
+                <h2>Our Full Portfolio</h2>
+                
+                <div class="portfolio-grid">
+                    {% for project in projects %}
+                    <a href="{{ url_for('project_detail', project_id=project.id) }}" data-aos="fade-up" data-aos-delay="{{ (loop.index0 % 4) * 100 }}">
+                        <div class="portfolio-item">
+                            <img src="{{ url_for('static', filename='uploads/' + project.thumbnail) if project.thumbnail else 'https://via.placeholder.com/400x300' }}" alt="{{ project.title }}" loading="lazy">
+                            <span class="portfolio-text">{{ project.title }}</span>
+                        </div>
+                    </a>
+                    {% else %}
+                    <p>No projects have been added yet. Please check back later.</p>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 PHOTOGENIG. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='particles-config.js') }}"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: false,
+      });
+    </script>
+</body>
+</html>

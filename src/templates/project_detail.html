@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - PHOTOGENIG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=1.6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}" class="logo">
+                <div class="logo-icon"></div>
+                <span>PHOTOGENIG</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}#portfolio">Work</a></li>
+                <li><a href="{{ url_for('index') }}#about">About</a></li>
+                <li><a href="{{ url_for('index') }}#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-detail-section">
+            <div class="section-content" data-aos="fade-up">
+                <h2>{{ project.title }}</h2>
+                
+                <div class="media-grid" data-aos="fade-up" data-aos-delay="100">
+                    {% for image in project.images %}
+                        <div class="media-item">
+                            <img class="clickable-image" src="{{ url_for('static', filename='uploads/' + image.path) }}" alt="Image for {{ project.title }}">
+                        </div>
+                    {% endfor %}
+
+                    {% for video in project.videos %}
+                        <div class="media-item">
+                            <video controls>
+                                <source src="{{ url_for('static', filename='uploads/' + video.path) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="project-description" data-aos="fade-up">
+                    <h3>About the Project</h3>
+                    <p>{{ project.description | safe }}</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 PHOTOGENIG. All rights reserved.</p>
+    </footer>
+
+    <div id="lightbox" class="lightbox-container">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='particles-config.js') }}"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: false,
+      });
+    </script>
+</body>
+</html>
